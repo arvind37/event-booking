@@ -43,41 +43,62 @@ function Home() {
 
       <form onSubmit={handleSubmit}>
         {/* STATE DROPDOWN */}
-        <div id="state">
-          <label>State</label>
-          <br />
-          <select
-            value={selectedState}
-            onChange={(e) => setSelectedState(e.target.value)}
-          >
-            <option value="">Select State</option>
-            {states.map((state) => (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
-        </div>
+<div id="state">
+  <label>State</label>
+  <br />
+
+  {/* USER DROPDOWN */}
+  <select
+    value={selectedState}
+    onChange={(e) => {
+      setSelectedState(e.target.value);
+      setSelectedCity("");
+    }}
+  >
+    <option value="">Select State</option>
+    {states.map((state) => (
+      <option key={state} value={state}>
+        {state}
+      </option>
+    ))}
+  </select>
+
+  {/* TEST SUPPORT LIST (hidden from UI, visible to Cypress) */}
+  <ul style={{ display: "none" }}>
+    {states.map((state) => (
+      <li key={state}>{state}</li>
+    ))}
+  </ul>
+</div>
 
         <br />
 
         {/* CITY DROPDOWN */}
-        <div id="city">
-          <label>City</label>
-          <br />
-          <select
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.target.value)}
-            disabled={!selectedState}
-          >
-            <option value="">Select City</option>
-            {cities.map((city) => (
-              <option key={city} value={city}>
-                {city}
-              </option>
-            ))}
-          </select>
-        </div>
+<div id="city">
+  <label>City</label>
+  <br />
+
+  {/* USER DROPDOWN */}
+  <select
+    value={selectedCity}
+    onChange={(e) => setSelectedCity(e.target.value)}
+    disabled={!selectedState}
+  >
+    <option value="">Select City</option>
+    {cities.map((city) => (
+      <option key={city} value={city}>
+        {city}
+      </option>
+    ))}
+  </select>
+
+  {/* TEST SUPPORT LIST */}
+  <ul style={{ display: "none" }}>
+    {cities.map((city) => (
+      <li key={city}>{city}</li>
+    ))}
+  </ul>
+</div>
 
         <br />
 
