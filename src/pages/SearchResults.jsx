@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { fetchEvents } from "../api/eventsApi";
 import BookingModal from "../components/BookingModal";
-import EventCarousel from "../components/EventCarousel";
 
 
 function SearchResults() {
