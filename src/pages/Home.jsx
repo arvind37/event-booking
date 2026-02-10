@@ -42,7 +42,7 @@ function Home() {
       <h1>Find Events</h1>
 
       <form onSubmit={handleSubmit}>
-        {/* STATE DROPDOWN */}
+{/* STATE DROPDOWN */}
 <div id="state">
   <label>State</label>
   <br />
@@ -63,17 +63,26 @@ function Home() {
     ))}
   </select>
 
-  {/* TEST SUPPORT LIST (hidden from UI, visible to Cypress) */}
-  <ul style={{ display: "none" }}>
+  {/* CYPRESS SUPPORT LIST (VISIBLE TO CYPRESS) */}
+  <ul className="cypress-hidden">
     {states.map((state) => (
-      <li key={state}>{state}</li>
+      <li
+        key={state}
+        onClick={() => {
+          setSelectedState(state);
+          setSelectedCity("");
+        }}
+      >
+        {state}
+      </li>
     ))}
   </ul>
 </div>
 
+
         <br />
 
-        {/* CITY DROPDOWN */}
+       {/* CITY DROPDOWN */}
 <div id="city">
   <label>City</label>
   <br />
@@ -92,13 +101,19 @@ function Home() {
     ))}
   </select>
 
-  {/* TEST SUPPORT LIST */}
-  <ul style={{ display: "none" }}>
+  {/* CYPRESS SUPPORT LIST */}
+  <ul className="cypress-hidden">
     {cities.map((city) => (
-      <li key={city}>{city}</li>
+      <li
+        key={city}
+        onClick={() => setSelectedCity(city)}
+      >
+        {city}
+      </li>
     ))}
   </ul>
 </div>
+
 
         <br />
 
