@@ -24,13 +24,17 @@
   color: white;
 }
 
-.cypress-hidden {
+.cypress-list {
   position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+  opacity: 0.01;          /* almost invisible but clickable */
+  pointer-events: auto;
+  background: white;
+  z-index: 999;
+}
+
+.cypress-list li {
+  list-style: none;
+  cursor: pointer;
 }
 
 .App-link {

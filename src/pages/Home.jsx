@@ -9,6 +9,9 @@ function Home() {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
+  const [showStates, setShowStates] = useState(false);
+const [showCities, setShowCities] = useState(false);
+
   const navigate = useNavigate();
 
   // Fetch states on page load
@@ -43,75 +46,111 @@ function Home() {
 
       <form onSubmit={handleSubmit}>
 {/* STATE DROPDOWN */}
-<div id="state">
+<div id="state" style={{ position: "relative", width: "250px" }}>
   <label>State</label>
-  <br />
 
-  {/* USER DROPDOWN */}
-  <select
-    value={selectedState}
-    onChange={(e) => {
-      setSelectedState(e.target.value);
-      setSelectedCity("");
+  {/* Selected value box */}
+  <div
+    onClick={() => setShowStates((prev) => !prev)}
+    style={{
+      border: "1px solid #ccc",
+      padding: "8px",
+      cursor: "pointer",
+      background: "#fff",
     }}
   >
-    <option value="">Select State</option>
-    {states.map((state) => (
-      <option key={state} value={state}>
-        {state}
-      </option>
-    ))}
-  </select>
+    {selectedState || "Select State"}
+  </div>
 
-  {/* CYPRESS SUPPORT LIST (VISIBLE TO CYPRESS) */}
-  <ul className="cypress-hidden">
-    {states.map((state) => (
-      <li
-        key={state}
-        onClick={() => {
-          setSelectedState(state);
-          setSelectedCity("");
-        }}
-      >
-        {state}
-      </li>
-    ))}
-  </ul>
+  {/* Dropdown list */}
+  {showStates && (
+    <ul
+      style={{
+        border: "1px solid #ccc",
+        margin: 0,
+        padding: 0,
+        listStyle: "none",
+        position: "absolute",
+        width: "100%",
+        background: "#fff",
+        zIndex: 10,
+        maxHeight: "200px",
+        overflowY: "auto",
+      }}
+    >
+      {states.map((state) => (
+        <li
+          key={state}
+          onClick={() => {
+            setSelectedState(state);
+            setSelectedCity("");
+            setShowStates(false);
+          }}
+          style={{
+            padding: "8px",
+            cursor: "pointer",
+          }}
+        >
+          {state}
+        </li>
+      ))}
+    </ul>
+  )}
 </div>
 
 
+
+
         <br />
-
-       {/* CITY DROPDOWN */}
-<div id="city">
+{/* CITY DROPDOWN */}
+<div id="city" style={{ position: "relative", width: "250px", marginTop: "20px" }}>
   <label>City</label>
-  <br />
 
-  {/* USER DROPDOWN */}
-  <select
-    value={selectedCity}
-    onChange={(e) => setSelectedCity(e.target.value)}
-    disabled={!selectedState}
+  <div
+    onClick={() => selectedState && setShowCities((prev) => !prev)}
+    style={{
+      border: "1px solid #ccc",
+      padding: "8px",
+      cursor: selectedState ? "pointer" : "not-allowed",
+      background: "#fff",
+      color: selectedState ? "#000" : "#aaa",
+    }}
   >
-    <option value="">Select City</option>
-    {cities.map((city) => (
-      <option key={city} value={city}>
-        {city}
-      </option>
-    ))}
-  </select>
+    {selectedCity || "Select City"}
+  </div>
 
-  {/* CYPRESS SUPPORT LIST */}
-  <ul className="cypress-hidden">
-    {cities.map((city) => (
-      <li
-        key={city}
-        onClick={() => setSelectedCity(city)}
-      >
-        {city}
-      </li>
-    ))}
-  </ul>
+  {showCities && (
+    <ul
+      style={{
+        border: "1px solid #ccc",
+        margin: 0,
+        padding: 0,
+        listStyle: "none",
+        position: "absolute",
+        width: "100%",
+        background: "#fff",
+        zIndex: 10,
+        maxHeight: "200px",
+        overflowY: "auto",
+      }}
+    >
+      {cities.map((city) => (
+        <li
+          key={city}
+          onClick={() => {
+            setSelectedCity(city);
+            setShowCities(false);
+          }}
+          style={{
+            padding: "8px",
+            cursor: "pointer",
+          }}
+        >
+          {city}
+        </li>
+      ))}
+    </ul>
+  )}
 </div>
 
 
